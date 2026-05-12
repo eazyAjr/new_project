@@ -11,7 +11,9 @@
   ],
   "functions": {
     "api/index.ts": {
-      "maxDuration": 30
+      "maxDuration": 30,
+      "includeFiles": "node_modules/.prisma/client/**",
+      "runtime": "nodejs20.x"
     }
   }
 }
