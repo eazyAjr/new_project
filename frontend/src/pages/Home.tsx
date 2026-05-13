@@ -1,10 +1,16 @@
 import { useNavigate } from 'react-router-dom'
+import api from '../utils/api'
 
 export default function Home() {
   const navigate = useNavigate()
   const username = localStorage.getItem('username') || ''
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await api.post('/auth/logout')
+    } catch {
+      // 即使接口失败也清除本地状态
+    }
     localStorage.removeItem('token')
     localStorage.removeItem('username')
     navigate('/login', { replace: true })

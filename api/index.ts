@@ -64,4 +64,24 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok' })
 })
 
+// 退出登录 - 将 token 加入黑名单
+app.post('/api/auth/logout', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: '未登录' })
+    }
+    const token = authHeader.split(' ')[1]
+    const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload
+    const expiresAt = new Date((decoded.exp || 0) * 1000)
+    await prisma.blacklistedToken.create({
+      data: { token, expiresAt },
+    })
+    return res.json({ message: '退出成功' })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({ message: '服务器错误' })
+  }
+})
+
 export default app
