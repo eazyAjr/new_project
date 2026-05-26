@@ -25,6 +25,7 @@ export default function Layout({ children }: LayoutProps) {
   const menuItems = [
     { path: '/', label: '首页' },
     { path: '/bank-locator', label: '银行定位器' },
+    { path: '/route-planner', label: '线路规划' },
   ]
 
   return (
