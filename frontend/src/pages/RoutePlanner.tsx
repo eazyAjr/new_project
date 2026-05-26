@@ -46,7 +46,6 @@ export default function RoutePlanner() {
 
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null)
   const [targetLocation, setTargetLocation] = useState<[number, number] | null>(null)
-  const [targetName, setTargetName] = useState('')
 
   const [navMode, setNavMode] = useState<NavMode>('driving')
   const [routeInfo, setRouteInfo] = useState<any>(null)
@@ -203,7 +202,6 @@ export default function RoutePlanner() {
   const selectPoi = (poi: PoiItem) => {
     setSearchInput(poi.name)
     setTargetLocation(poi.location)
-    setTargetName(poi.name)
     setShowResults(false)
     setRouteInfo(null)
     setRouteSteps([])
